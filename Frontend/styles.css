@@ -1,0 +1,77 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and background */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #131921;
+    padding: 15px 20px;
+    color: white;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header .user-info {
+    font-size: 16px;
+    text-align: right;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Hover effect for nav links */
+header nav ul li a:hover {
+    color: #ff9900;
+}
+
+/* Main section styles */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.dashboard h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.dashboard p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Footer styles */
+footer {
+    background-color: #131921;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}
