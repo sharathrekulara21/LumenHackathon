@@ -1,4 +1,4 @@
-const supplierModel = require('../models/supplierModel');
+const supplierModel = require('../middleware/supplierModel');
 
 //  Fetch all suppliers
 const getAllSuppliers = async (req, res) => {
