@@ -1,67 +1,47 @@
-const transactionModel = require('../models/transactionModel');
+const db = require('../config/database');  // Assuming database connection is set up in config/database.js
 
 // Fetch all transactions
-const getAllTransactions = async (req, res) => {
+const getAllTransactions = async () => {
     try {
-        const transactions = await transactionModel.getAllTransactions();
-        res.status(200).json(transactions);
+        const [rows] = await db.query('SELECT * FROM transactions');
+        return rows;
     } catch (error) {
-        console.error('Error fetching transactions:', error.message);
-        res.status(500).json({ error: 'Internal Server Error' });
+        throw new Error('Error fetching transactions: ' + error.message);
     }
 };
 
 // Add a new transaction
-const addTransaction = async (req, res) => {
-    const { user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp } = req.body;
-
-    if (!user_id || !product_id || !supplier_id || !status || !order_date || !quantity || !transaction_type || !timestamp) {
-        return res.status(400).json({ error: 'All fields are required: user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp' });
-    }
-
+const addTransaction = async (transaction) => {
+    const { user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp } = transaction;
     try {
-        const transaction = await transactionModel.addTransaction({ user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp });
-        res.status(201).json({ message: 'Transaction added successfully', transaction });
+        const query = 'INSERT INTO transactions (user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        const [result] = await db.query(query, [user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp]);
+        return { transaction_id: result.insertId, ...transaction };
     } catch (error) {
-        console.error('Error adding transaction:', error.message);
-        res.status(500).json({ error: 'Internal Server Error' });
+        throw new Error('Error adding transaction: ' + error.message);
     }
 };
 
-// update a transaction
-const updateTransaction = async (req, res) => {
-    const { transaction_id } = req.params;
-    const { user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp } = req.body;
-
-    if (!user_id || !product_id || !supplier_id || !status || !order_date || !quantity || !transaction_type || !timestamp) {
-        return res.status(400).json({ error: 'All fields are required: user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp' });
-    }
-
+// Update a transaction
+const updateTransaction = async (transaction_id, transaction) => {
+    const { user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp } = transaction;
     try {
-        const isUpdated = await transactionModel.updateTransaction(transaction_id, { user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp });
-        if (!isUpdated) {
-            return res.status(404).json({ error: 'Transaction not found' });
-        }
-        res.status(200).json({ message: 'Transaction updated successfully' });
+        const query = 'UPDATE transactions SET user_id = ?, product_id = ?, supplier_id = ?, status = ?, order_date = ?, quantity = ?, transaction_type = ?, timestamp = ? WHERE transaction_id = ?';
+        const [result] = await db.query(query, [user_id, product_id, supplier_id, status, order_date, quantity, transaction_type, timestamp, transaction_id]);
+        return result.affectedRows > 0;
     } catch (error) {
-        console.error('Error updating transaction:', error.message);
-        res.status(500).json({ error: 'Internal Server Error' });
+        throw new Error('Error updating transaction: ' + error.message);
     }
 };
 
 // Delete a transaction
-const deleteTransaction = async (req, res) => {
-    const { transaction_id } = req.params;
-
+const deleteTransaction = async (transaction_id) => {
     try {
-        const isDeleted = await transactionModel.deleteTransaction(transaction_id);
-        if (!isDeleted) {
-            return res.status(404).json({ error: 'Transaction not found' });
-        }
-        res.status(200).json({ message: 'Transaction deleted successfully' });
+        const query = 'DELETE FROM transactions WHERE transaction_id = ?';
+        const [result] = await db.query(query, [transaction_id]);
+        return result.affectedRows > 0;
     } catch (error) {
-        console.error('Error deleting transaction:', error.message);
-        res.status(500).json({ error: 'Internal Server Error' });
+        throw new Error('Error deleting transaction: ' + error.message);
     }
 };
 
