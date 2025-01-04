@@ -1,0 +1,94 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f3f4f6, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .main-container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+  }
+  
+  /* Header */
+  .main-container h1 {
+    color: #333333;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .main-container p {
+    color: #555555;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  /* Button Group */
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Buttons */
+  .btn {
+    text-decoration: none;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Button Colors */
+  .admin-btn {
+    background-color: #3b82f6;
+  }
+  
+  .management-btn {
+    background-color: #10b981;
+  }
+  
+  .staff-btn {
+    background-color: #f43f5e;
+  }
+  
+  /* Hover Effects */
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .admin-btn:hover {
+    background-color: #2563eb;
+  }
+  
+  .management-btn:hover {
+    background-color: #059669;
+  }
+  
+  .staff-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .btn {
+      font-size: 16px;
+      padding: 12px;
+    }
+  }
+  
