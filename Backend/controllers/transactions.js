@@ -1,4 +1,4 @@
-const transactionModel = require('../models/transactionModel');
+const transactionModel = require('../middleware/transactionModel');
 
 // Fetch all transactions
 const getAllTransactions = async (req, res) => {
